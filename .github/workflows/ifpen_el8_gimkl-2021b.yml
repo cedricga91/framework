@@ -32,7 +32,8 @@ env:
   # For intel MPI to fix errors appearing in July 2023
   I_MPI_SHM_LMT: shm
   # For intel MPI to fix errors "dû au fait qu'on dépasse le nombre de PE" (07/2024)
-  I_MPI_WAIT_MODE: 1
+  #I_MPI_WAIT_MODE: 1
+  I_MPI_THREAD_YIELD: 3
   # To remove test output directory to reduce disk usage
   ARCANE_TEST_CLEANUP_AFTER_RUN : 1
 
