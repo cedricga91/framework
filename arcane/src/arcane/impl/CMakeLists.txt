@@ -2,7 +2,9 @@ add_include_directories_if_found(FLEXLM)
 
 include(srcs.cmake)
 
-set(PKGS FLEXLM)
+# Migration from FlexLM to RLM
+#set(PKGS FLEXLM)
+set(PKGS RLM)
 if(FLEXLM_FOUND)
   set(ARCANE_SOURCES ${ARCANE_SOURCES} FlexLMTools.cc)
 endif()

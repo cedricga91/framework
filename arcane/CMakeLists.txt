@@ -553,14 +553,18 @@ if (NOT ARCANE_WANT_NOMPI)
   arcane_find_package(MPI)
 endif()
 arcane_find_package(Valgrind)
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindFlexLM.cmake)
+# Migration from FlexLM to RLM
+#include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindFlexLM.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindRLM.cmake)
 message(STATUS "----------------------------------------------------")
 
 # default package list
 set(ARCANE_PACKAGE_LIST ${ARCANE_ADDITIONAL_PACKAGES})
 
 # optional package list
-set(ARCANE_OPTIONAL_PACKAGE_LIST FLEXLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
+# Migration from FlexLM to RLM
+#set(ARCANE_OPTIONAL_PACKAGE_LIST FLEXLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
+set(ARCANE_OPTIONAL_PACKAGE_LIST RLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
 
 message(STATUS "**** CHECK PACKAGE LIST ****")
 
