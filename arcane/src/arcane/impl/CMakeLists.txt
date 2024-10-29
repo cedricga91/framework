@@ -1,11 +1,19 @@
+# FlexLM
 add_include_directories_if_found(FLEXLM)
+# RLM
+add_include_directories_if_found(RLM)
 
 include(srcs.cmake)
 
-# Migration from FlexLM to RLM
-#set(PKGS FLEXLM)
-set(PKGS RLM)
+# FlexLM
+set(PKGS FLEXLM)
 if(FLEXLM_FOUND)
+  set(ARCANE_SOURCES ${ARCANE_SOURCES} FlexLMTools.cc)
+endif()
+
+# RLM
+set(PKGS RLM)
+if(RLM_FOUND)
   set(ARCANE_SOURCES ${ARCANE_SOURCES} FlexLMTools.cc)
 endif()
 
@@ -31,5 +39,9 @@ endif()
 # FlexLM
 target_link_directories(arcane_utils PUBLIC ${FLEXLM_LIBRARY_DIRS})
 target_link_libraries(arcane_utils PUBLIC ${FLEXLM_LIBRARIES})
+
+# RLM
+target_link_directories(arcane_utils PUBLIC ${RLM_LIBRARY_DIRS})
+target_link_libraries(arcane_utils PUBLIC ${RLM_LIBRARIES})
 
 arcane_register_library(arcane_impl)

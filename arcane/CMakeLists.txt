@@ -553,8 +553,9 @@ if (NOT ARCANE_WANT_NOMPI)
   arcane_find_package(MPI)
 endif()
 arcane_find_package(Valgrind)
-# Migration from FlexLM to RLM
+# FlexLM
 #include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindFlexLM.cmake)
+# RLM
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindRLM.cmake)
 message(STATUS "----------------------------------------------------")
 
@@ -562,8 +563,9 @@ message(STATUS "----------------------------------------------------")
 set(ARCANE_PACKAGE_LIST ${ARCANE_ADDITIONAL_PACKAGES})
 
 # optional package list
-# Migration from FlexLM to RLM
+# FlexLM
 #set(ARCANE_OPTIONAL_PACKAGE_LIST FLEXLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
+# RLM
 set(ARCANE_OPTIONAL_PACKAGE_LIST RLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
 
 message(STATUS "**** CHECK PACKAGE LIST ****")
@@ -658,11 +660,19 @@ if(ARCANE_WANT_LONGDOUBLE)
   set(ARCANE_DOTNET FALSE)
 endif()
 
+# FlexLM
 IF(NOT FLEXLM_FOUND)
   MESSAGE(STATUS "PACKAGE: FlexLM         : not found")
 ELSE(NOT FLEXLM_FOUND)
   MESSAGE(STATUS "PACKAGE: FlexLM         : ${FLEXLM_LIBRARIES}")
 ENDIF(NOT FLEXLM_FOUND)
+
+# RLM
+IF(NOT RLM_FOUND)
+  MESSAGE(STATUS "PACKAGE: RLM         : not found")
+ELSE(NOT RLM_FOUND)
+  MESSAGE(STATUS "PACKAGE: RLM         : ${RLM_LIBRARIES}")
+ENDIF(NOT RLM_FOUND)
 
 IF(ARCANE_CONFIGURE_WANT_MPC)
   IF(NOT MPC_FOUND)
@@ -754,6 +764,7 @@ if(ARCANE_USE_MPC)
   target_compile_options(arcane_build_compile_flags INTERFACE ${MPC_CFLAGS})
 endif()
 
+# FlexLM
 if(FLEXLM_FOUND)
   # TODO: mettre cela dans un 'target_compile_definitions'
   ADD_DEFINITIONS(-DARCANE_FLEXLM)
@@ -761,6 +772,16 @@ if(FLEXLM_FOUND)
   list(APPEND ARCANE_EXTERNAL_LIBRARIES ${FLEXLM_LIBRARIES})
   # TODO: a priori cette variable n'est plust utilisée donc on devrait pouvoir la supprimer
   list(APPEND ARCANE_EXTERNAL_LIBRARY_DIRS ${FLEXLM_LIBRARY_DIRS})
+endif()
+
+# RLM
+if(RLM_FOUND)
+  # TODO: mettre cela dans un 'target_compile_definitions'
+  ADD_DEFINITIONS(-DARCANE_RLM)
+  set(ARCANE_INCLUDE_LIST ${ARCANE_INCLUDE_LIST} ${RLM_INCLUDE_DIR})
+  list(APPEND ARCANE_EXTERNAL_LIBRARIES ${RLM_LIBRARIES})
+  # TODO: a priori cette variable n'est plust utilisée donc on devrait pouvoir la supprimer
+  list(APPEND ARCANE_EXTERNAL_LIBRARY_DIRS ${RLM_LIBRARY_DIRS})
 endif()
 
 if(ARCANE_USE_MPC)
