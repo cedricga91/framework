@@ -6,6 +6,7 @@
 # LICENSE_SYSTEM_LIBRARIES, the libraries to link against to use RLM.
 # LICENSE_SYSTEM_LIBRARY_DIRS, the library path to link against to use RLM.
 # LICENSE_SYSTEM_FOUND, If false, do not try to use RLM.
+# LICENSE_SYSTEM_NAME, RLM.
 
 if(NOT RLM_ROOT)
   set(RLM_ROOT $ENV{RLM_ROOT})
@@ -58,6 +59,7 @@ IF(LICENSE_SYSTEM_INCLUDE_DIR)
     # erreur dans une recherche de lib
   ELSE(LICENSE_SYSTEM_LIBRARY_FAILED)
     SET(LICENSE_SYSTEM_FOUND "YES")
+    SET(LICENSE_SYSTEM_NAME "RLM")
     # Bibliothèques systèmes supplémentaires
     if(WIN32)
       SET(LICENSE_SYSTEM_LIBRARIES ${LICENSE_SYSTEM_LIBRARY} oldnames.lib kernel32.lib user32.lib netapi32.lib

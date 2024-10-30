@@ -88,7 +88,7 @@
 #include <map>
 #include <chrono>
 
-#ifdef ARCANE_FLEXLM
+#if defined(ARCANE_FLEXLM) || defined(ARCANE_RLM)
 #include "arcane/impl/FlexLMTools.h"
 #endif
 
@@ -409,7 +409,7 @@ initialize()
   m_ret_val = 0;
   m_clean_abort = false;
 
-#ifdef ARCANE_FLEXLM
+#if defined(ARCANE_FLEXLM) || defined(ARCANE_RLM)
   try {
     IApplication* app = m_exec_main->application();
     ITraceMng* trace = app->traceMng();
@@ -766,7 +766,7 @@ arcaneFinalize()
     dom::DOMImplementation::terminate();
     ItemTypeMng::_destroySingleton();
     arcaneEndProgram();
-#ifdef ARCANE_FLEXLM
+#if defined(ARCANE_FLEXLM) || defined(ARCANE_RLM)
     {
       FlexLMMng::instance()->releaseAllLicenses();
     }

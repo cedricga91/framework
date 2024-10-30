@@ -6,6 +6,7 @@
 # LICENSE_SYSTEM_LIBRARIES, the libraries to link against to use FlexlmAPI.
 # LICENSE_SYSTEM_LIBRARY_DIRS, the library path to link against to use FlexlmAPI.
 # LICENSE_SYSTEM_FOUND, If false, do not try to use FlexlmAPI.
+# LICENSE_SYSTEM_NAME, FLEXLM.
 
 if(NOT FLEXLM_ROOT)
   set(FLEXLM_ROOT $ENV{FLEXLM_ROOT})
@@ -59,6 +60,7 @@ IF(LICENSE_SYSTEM_INCLUDE_DIR)
     # erreur dans une recherche de lib
   ELSE(LICENSE_SYSTEM_LIBRARY_FAILED)
     SET(LICENSE_SYSTEM_FOUND "YES")
+    SET(LICENSE_SYSTEM_NAME "FLEXLM")
     # Biblioth�ques syst�mes suppl�mentaires
     if(WIN32)
       SET(LICENSE_SYSTEM_LIBRARIES ${LICENSE_SYSTEM_LIBRARY} oldnames.lib kernel32.lib user32.lib netapi32.lib

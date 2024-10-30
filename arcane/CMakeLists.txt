@@ -771,7 +771,7 @@ endif()
 # LICENSE_SYSTEM
 if(LICENSE_SYSTEM_FOUND)
   # TODO: mettre cela dans un 'target_compile_definitions'
-  ADD_DEFINITIONS(-DARCANE_LICENSE_SYSTEM)
+  ADD_DEFINITIONS(-DARCANE_${LICENSE_SYSTEM_NAME})
   set(ARCANE_INCLUDE_LIST ${ARCANE_INCLUDE_LIST} ${LICENSE_SYSTEM_INCLUDE_DIR})
   list(APPEND ARCANE_EXTERNAL_LIBRARIES ${LICENSE_SYSTEM_LIBRARIES})
   # TODO: a priori cette variable n'est plust utilisée donc on devrait pouvoir la supprimer
