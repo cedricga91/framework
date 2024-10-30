@@ -1,19 +1,11 @@
-# FlexLM
-add_include_directories_if_found(FLEXLM)
-# RLM
-add_include_directories_if_found(RLM)
+# LICENSE_SYSTEM
+add_include_directories_if_found(LICENSE_SYSTEM)
 
 include(srcs.cmake)
 
-# FlexLM
-set(PKGS FLEXLM)
-if(FLEXLM_FOUND)
-  set(ARCANE_SOURCES ${ARCANE_SOURCES} FlexLMTools.cc)
-endif()
-
-# RLM
-set(PKGS RLM)
-if(RLM_FOUND)
+# LICENSE_SYSTEM
+set(PKGS LICENSE_SYSTEM)
+if(LICENSE_SYSTEM_FOUND)
   set(ARCANE_SOURCES ${ARCANE_SOURCES} FlexLMTools.cc)
 endif()
 
@@ -36,12 +28,8 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   target_link_libraries(arcane_impl PUBLIC dl)
 endif()
 
-# FlexLM
-target_link_directories(arcane_utils PUBLIC ${FLEXLM_LIBRARY_DIRS})
-target_link_libraries(arcane_utils PUBLIC ${FLEXLM_LIBRARIES})
-
-# RLM
-target_link_directories(arcane_utils PUBLIC ${RLM_LIBRARY_DIRS})
-target_link_libraries(arcane_utils PUBLIC ${RLM_LIBRARIES})
+# LICENSE_SYSTEM
+target_link_directories(arcane_utils PUBLIC ${LICENSE_SYSTEM_LIBRARY_DIRS})
+target_link_libraries(arcane_utils PUBLIC ${LICENSE_SYSTEM_LIBRARIES})
 
 arcane_register_library(arcane_impl)

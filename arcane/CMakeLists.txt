@@ -553,20 +553,31 @@ if (NOT ARCANE_WANT_NOMPI)
   arcane_find_package(MPI)
 endif()
 arcane_find_package(Valgrind)
-# FlexLM
-#include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindFlexLM.cmake)
-# RLM
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindRLM.cmake)
+
+# Définir la variable LICENSE_SYSTEM avec une valeur par défaut de RLM
+set(LICENSE_SYSTEM "RLM" CACHE STRING "Specify the license system (FLEXLM or RLM)")
+
+# Vérifiez la valeur de LICENSE_SYSTEM
+if(LICENSE_SYSTEM STREQUAL "FLEXLM")
+    message(STATUS "Using FlexLM")
+    include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindFlexLM.cmake)
+elseif(LICENSE_SYSTEM STREQUAL "RLM")
+    message(STATUS "Using RLM")
+    include(${CMAKE_CURRENT_LIST_DIR}/cmake/FindRLM.cmake)
+else()
+    message(FATAL_ERROR "Invalid value for LICENSE_SYSTEM: ${LICENSE_SYSTEM}. Please use FLEXLM or RLM.")
+endif()
+
+# Exemple d'utilisation de la variable LICENSE_SYSTEM
+message(STATUS "License system set to: ${LICENSE_SYSTEM}")
 message(STATUS "----------------------------------------------------")
 
 # default package list
 set(ARCANE_PACKAGE_LIST ${ARCANE_ADDITIONAL_PACKAGES})
 
 # optional package list
-# FlexLM
-#set(ARCANE_OPTIONAL_PACKAGE_LIST FLEXLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
-# RLM
-set(ARCANE_OPTIONAL_PACKAGE_LIST RLM ${ARCANE_OPTIONAL_PACKAGE_LIST})
+# LICENSE_SYSTEM
+set(ARCANE_OPTIONAL_PACKAGE_LIST LICENSE_SYSTEM ${ARCANE_OPTIONAL_PACKAGE_LIST})
 
 message(STATUS "**** CHECK PACKAGE LIST ****")
 
@@ -660,19 +671,12 @@ if(ARCANE_WANT_LONGDOUBLE)
   set(ARCANE_DOTNET FALSE)
 endif()
 
-# FlexLM
-IF(NOT FLEXLM_FOUND)
-  MESSAGE(STATUS "PACKAGE: FlexLM         : not found")
-ELSE(NOT FLEXLM_FOUND)
-  MESSAGE(STATUS "PACKAGE: FlexLM         : ${FLEXLM_LIBRARIES}")
-ENDIF(NOT FLEXLM_FOUND)
-
-# RLM
-IF(NOT RLM_FOUND)
-  MESSAGE(STATUS "PACKAGE: RLM         : not found")
-ELSE(NOT RLM_FOUND)
-  MESSAGE(STATUS "PACKAGE: RLM         : ${RLM_LIBRARIES}")
-ENDIF(NOT RLM_FOUND)
+# LICENSE_SYSTEM
+IF(NOT LICENSE_SYSTEM_FOUND)
+  MESSAGE(STATUS "PACKAGE: LICENSE_SYSTEM         : not found")
+ELSE(NOT LICENSE_SYSTEM_FOUND)
+  MESSAGE(STATUS "PACKAGE: LICENSE_SYSTEM         : ${LICENSE_SYSTEM_LIBRARIES}")
+ENDIF(NOT LICENSE_SYSTEM_FOUND)
 
 IF(ARCANE_CONFIGURE_WANT_MPC)
   IF(NOT MPC_FOUND)
@@ -764,24 +768,14 @@ if(ARCANE_USE_MPC)
   target_compile_options(arcane_build_compile_flags INTERFACE ${MPC_CFLAGS})
 endif()
 
-# FlexLM
-if(FLEXLM_FOUND)
+# LICENSE_SYSTEM
+if(LICENSE_SYSTEM_FOUND)
   # TODO: mettre cela dans un 'target_compile_definitions'
-  ADD_DEFINITIONS(-DARCANE_FLEXLM)
-  set(ARCANE_INCLUDE_LIST ${ARCANE_INCLUDE_LIST} ${FLEXLM_INCLUDE_DIR})
-  list(APPEND ARCANE_EXTERNAL_LIBRARIES ${FLEXLM_LIBRARIES})
+  ADD_DEFINITIONS(-DARCANE_LICENSE_SYSTEM)
+  set(ARCANE_INCLUDE_LIST ${ARCANE_INCLUDE_LIST} ${LICENSE_SYSTEM_INCLUDE_DIR})
+  list(APPEND ARCANE_EXTERNAL_LIBRARIES ${LICENSE_SYSTEM_LIBRARIES})
   # TODO: a priori cette variable n'est plust utilisée donc on devrait pouvoir la supprimer
-  list(APPEND ARCANE_EXTERNAL_LIBRARY_DIRS ${FLEXLM_LIBRARY_DIRS})
-endif()
-
-# RLM
-if(RLM_FOUND)
-  # TODO: mettre cela dans un 'target_compile_definitions'
-  ADD_DEFINITIONS(-DARCANE_RLM)
-  set(ARCANE_INCLUDE_LIST ${ARCANE_INCLUDE_LIST} ${RLM_INCLUDE_DIR})
-  list(APPEND ARCANE_EXTERNAL_LIBRARIES ${RLM_LIBRARIES})
-  # TODO: a priori cette variable n'est plust utilisée donc on devrait pouvoir la supprimer
-  list(APPEND ARCANE_EXTERNAL_LIBRARY_DIRS ${RLM_LIBRARY_DIRS})
+  list(APPEND ARCANE_EXTERNAL_LIBRARY_DIRS ${LICENSE_SYSTEM_LIBRARY_DIRS})
 endif()
 
 if(ARCANE_USE_MPC)
