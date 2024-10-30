@@ -1,11 +1,11 @@
 #
-# Find the FlexlmAPI includes and library
+# Find the RLM includes and library
 #
 # This module defines
 # LICENSE_SYSTEM_INCLUDE_DIR, where to find headers,
-# LICENSE_SYSTEM_LIBRARIES, the libraries to link against to use FlexlmAPI.
-# LICENSE_SYSTEM_LIBRARY_DIRS, the library path to link against to use FlexlmAPI.
-# LICENSE_SYSTEM_FOUND, If false, do not try to use FlexlmAPI.
+# LICENSE_SYSTEM_LIBRARIES, the libraries to link against to use RLM.
+# LICENSE_SYSTEM_LIBRARY_DIRS, the library path to link against to use RLM.
+# LICENSE_SYSTEM_FOUND, If false, do not try to use RLM.
 
 if(NOT RLM_ROOT)
   set(RLM_ROOT $ENV{RLM_ROOT})
@@ -16,14 +16,13 @@ if(RLM_ROOT)
   string(REPLACE "\\" "/" RLM_ROOT ${RLM_ROOT})
 endif()
 
-# HINTS can be removed when using find_package for flexlm
+# HINTS can be removed when using find_package for RLM
 FIND_PATH(LICENSE_SYSTEM_INCLUDE_DIR FlexlmAPI.h HINTS ${RLM_ROOT}/include)
 
 
 SET(LICENSE_SYSTEM_LIBRARY)
 SET(LICENSE_SYSTEM_LIBRARY_FAILED)
 
-# par l'inclusion de la lib noact, nous ne visons ici que FlexNet v11 et +
 IF(WIN32)
   FOREACH(WANTED_LIB licenseapi)
     FIND_LIBRARY(LICENSE_SYSTEM_SUB_LIBRARY_${WANTED_LIB} ${WANTED_LIB})
@@ -59,7 +58,7 @@ IF(LICENSE_SYSTEM_INCLUDE_DIR)
     # erreur dans une recherche de lib
   ELSE(LICENSE_SYSTEM_LIBRARY_FAILED)
     SET(LICENSE_SYSTEM_FOUND "YES")
-    # Biblioth�ques syst�mes suppl�mentaires
+    # Bibliothèques systèmes supplémentaires
     if(WIN32)
       SET(LICENSE_SYSTEM_LIBRARIES ${LICENSE_SYSTEM_LIBRARY} oldnames.lib kernel32.lib user32.lib netapi32.lib
         advapi32.lib gdi32.lib comdlg32.lib comctl32.lib wsock32.lib shell32.lib
