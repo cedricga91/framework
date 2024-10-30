@@ -23,6 +23,17 @@ export LIBRARY_PATH="/work2/adm-ci-r11/data/rlm/licenseapi/lib:$LIBRARY_PATH"
 export LD_LIBRARY_PATH="/work2/adm-ci-r11/data/rlm/licenseapi/lib:$LD_LIBRARY_PATH"
 export RLM_ROOT="/work2/adm-ci-r11/data/rlm/licenseapi"
 
+# Patch for Arcane RLM Feature
+sed -i_orig -e 's/ArcaneCore/Arcane/g' ../arcane/src/arcane/impl/FlexLMTools.cc ../arcane/src/arcane/impl/FlexLMTools.h
+#echo "20241231.0" > ../arcane/version
+#See : arcane/src/arcane/impl/FlexLMTools.h
+#  static Real getVersion(eFeature feature)
+#  {
+#    ARCANE_UNUSED(feature);
+#    // Ecrit une version comparable numériquement; ex: 1.0610 (au lieu de 1.6.1)
+#    return (Real)ARCANE_VERSION_MAJOR + (Real)ARCANE_VERSION_MINOR / 100 + (Real)ARCANE_VERSION_RELEASE / 1000 + (Real)ARCANE_VERSION_BETA / 10000;
+#  }
+
 # CMake
 unset CMAKE_LIBRARY_PATH
 export GFORTRAN_ROOT="${EBROOTGCCCORE}"

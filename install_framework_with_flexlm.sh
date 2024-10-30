@@ -21,6 +21,10 @@ source /soft/irsrvsoft1/expl/eb/r11/centos_8/envs/arcsolver-advanced.sh
 module load FlexNetPublisher/11.14.1.3_v6-beicip
 #module load FlexNetPublisher/11.14.1.3_v6-ifp_lmd
 
+# Patch for Arcane RLM Feature
+#sed -i_orig 's/ArcaneCore/Arcane/g' ../arcane/src/arcane/impl/FlexLMTools.cc ../arcane/src/arcane/impl/FlexLMTools.h
+#echo "20241231.0" > ../arcane/version
+
 # CMake
 unset CMAKE_LIBRARY_PATH
 export GFORTRAN_ROOT="${EBROOTGCCCORE}"
