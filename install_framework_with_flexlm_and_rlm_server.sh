@@ -22,12 +22,8 @@ module load FlexNetPublisher/11.14.1.3_v6-beicip
 #module load FlexNetPublisher/11.14.1.3_v6-ifp_lmd
 
 # Patch for Arcane RLM Feature
-sed -i_orig 's/ArcaneCore/Arcane/g' ../arcane/src/arcane/impl/FlexLMTools.cc
-sed -i_orig \
-  -e 's/ArcaneCore/Arcane/g' \
-  -e 's,return (Real)ARCANE_VERSION_MAJOR + (Real)ARCANE_VERSION_MINOR / 100 + (Real)ARCANE_VERSION_RELEASE / 1000 + (Real)ARCANE_VERSION_BETA / 10000;,return (Real)20241231.0;,g' \
-  ../arcane/src/arcane/impl/FlexLMTools.h
-#cp -avf ../arcane/src/arcane/impl/FlexLMTools.h_StringVersion ../arcane/src/arcane/impl/FlexLMTools.h
+cp -avf ../arcane/src/arcane/impl/FlexLMTools.cc_Arcane-v20241231.0 ../arcane/src/arcane/impl/FlexLMTools.cc
+cp -avf ../arcane/src/arcane/impl/FlexLMTools.h_Arcane-v20241231.0 ../arcane/src/arcane/impl/FlexLMTools.h
 
 # CMake
 unset CMAKE_LIBRARY_PATH
