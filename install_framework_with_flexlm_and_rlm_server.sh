@@ -21,7 +21,7 @@ source /soft/irsrvsoft1/expl/eb/r11/centos_8/envs/arcsolver-advanced.sh
 module load FlexNetPublisher/11.14.1.3_v6-beicip
 #module load FlexNetPublisher/11.14.1.3_v6-ifp_lmd
 
-# Patch for Arcane RLM Feature
+# Patch for Arcane 20241231.0 RLM Feature
 cp -avf ../arcane/src/arcane/impl/FlexLMTools.cc_Arcane-v20241231.0 ../arcane/src/arcane/impl/FlexLMTools.cc
 cp -avf ../arcane/src/arcane/impl/FlexLMTools.h_Arcane-v20241231.0 ../arcane/src/arcane/impl/FlexLMTools.h
 
@@ -38,12 +38,14 @@ cmake -DREMOVE_UID_ON_DETACH=ON -DCMAKE_DISABLE_FIND_PACKAGE_Xdmf=TRUE -DUSE_GTE
 make -j12
 
 # Test
-
 set +e
-
-#export BEICIP_LICENSE_FILE=1761@irlinv-lic1:1761@irlinv-lic2:1761@irlinv-lic3 # BEICIP
-#export LM_LICENSE_FILE=1610@irlinv-lic1 # IFPEN
-ctest --output-on-failure -R 'alien.bench.trilinosmuelu.parallel'
-
+set -x
+# Beicip FlexLM
+export BEICIP_LICENSE_FILE=1761@irlinv-lic1:1761@irlinv-lic2:1761@irlinv-lic3
+export LM_LICENSE_FILE=1761@irlinv-lic1:1761@irlinv-lic2:1761@irlinv-lic3
+ctest --output-on-failure -R 'alien.bench.trilinosmuelu.parallel.mpi-4'
+# Beicip RLM
+export BEICIP_LICENSE_FILE=5053@localhost
+export LM_LICENSE_FILE=5053@localhost
 export RLM_LICENSE=5053@localhost
-ctest --output-on-failure -R 'alien.bench.trilinosmuelu.parallel'
+ctest --output-on-failure -R 'alien.bench.trilinosmuelu.parallel.mpi-4'

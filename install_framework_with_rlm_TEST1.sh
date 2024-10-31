@@ -36,13 +36,4 @@ export ARCANE_CONFIG_ENABLED_PACKAGES="LICENSE_SYSTEM"
 # FLEXLM est cherché via la variable d'environnement FLEXLM_ROOT
 cmake -DREMOVE_UID_ON_DETACH=ON -DCMAKE_DISABLE_FIND_PACKAGE_Xdmf=TRUE -DUSE_GTEST_DEATH_TEST=OFF -DUSE_GRAPH_CONNECTIVITY_POLICY=ON -DALIEN_BUILD_COMPONENT=all -DLICENSE_SYSTEM=RLM ..
 
-# Make
-#make -j12
-make -j12 arcane_impl
-
-# Test
-# Beicip RLM
-export BEICIP_LICENSE_FILE=5053@localhost
-export LM_LICENSE_FILE=5053@localhost
-export RLM_LICENSE=5053@localhost
-ctest --output-on-failure -R 'alien.bench.trilinosmuelu.parallel.mpi-4'
+echo "Add '-Wl,--no-undefined' to build/_common/build_all/arcane/src/arcane/impl/CMakeFiles/arcane_impl.dir/link.txt and run ./install_framework_with_rlm_TEST2.sh"
