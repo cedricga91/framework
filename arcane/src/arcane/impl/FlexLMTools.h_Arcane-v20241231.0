@@ -211,7 +211,7 @@ class ArcaneFeatureModel
   {
     ARCANE_UNUSED(feature);
     // Ecrit une version comparable numériquement; ex: 1.0610 (au lieu de 1.6.1)
-    return (Real)20241231.0;
+    return (Real)ARCANE_VERSION_MAJOR + (Real)ARCANE_VERSION_MINOR / 100 + (Real)ARCANE_VERSION_RELEASE / 1000 + (Real)ARCANE_VERSION_BETA / 10000;
   }
 
  private:
