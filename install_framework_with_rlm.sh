@@ -18,9 +18,9 @@ source /soft/irsrvsoft1/expl/eb/r11/centos_8/envs/arcsolver.sh
 source /soft/irsrvsoft1/expl/eb/r11/centos_8/envs/arcsolver-advanced.sh
 
 # RLM environment
-export CPATH="/work2/adm-ci-r11/data/rlm/licenseapi/include:$CPATH"
-export LIBRARY_PATH="/work2/adm-ci-r11/data/rlm/licenseapi/lib:$LIBRARY_PATH"
-export LD_LIBRARY_PATH="/work2/adm-ci-r11/data/rlm/licenseapi/lib:$LD_LIBRARY_PATH"
+#export CPATH="/work2/adm-ci-r11/data/rlm/licenseapi/include:$CPATH"
+#export LIBRARY_PATH="/work2/adm-ci-r11/data/rlm/licenseapi/lib:$LIBRARY_PATH"
+#export LD_LIBRARY_PATH="/work2/adm-ci-r11/data/rlm/licenseapi/lib:$LD_LIBRARY_PATH"
 export RLM_ROOT="/work2/adm-ci-r11/data/rlm/licenseapi"
 
 # Patch for Arcane 20241231.0 RLM Feature
@@ -37,8 +37,8 @@ export ARCANE_CONFIG_ENABLED_PACKAGES="LICENSE_SYSTEM"
 cmake -DREMOVE_UID_ON_DETACH=ON -DCMAKE_DISABLE_FIND_PACKAGE_Xdmf=TRUE -DUSE_GTEST_DEATH_TEST=OFF -DUSE_GRAPH_CONNECTIVITY_POLICY=ON -DALIEN_BUILD_COMPONENT=all -DLICENSE_SYSTEM=RLM ..
 
 # Make
-#make -j12
-make -j12 arcane_impl
+#make -j12 arcane_impl
+make -j12
 
 # Test
 # Beicip RLM

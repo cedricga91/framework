@@ -170,7 +170,7 @@ setCheckInterval(const Integer t)
 
 bool
 FlexLMMng::
-checkLicense(const String name, const String version, const bool do_fatal) const
+checkLicense(const String name, const Real version, const bool do_fatal) const
 {
   if (m_parallel_super_mng == NULL)
     throw LicenseErrorException(A_FUNCINFO,"FlexLMMng not initialized");
@@ -190,7 +190,7 @@ checkLicense(const String name, const String version, const bool do_fatal) const
 
 void
 FlexLMMng::
-getLicense(const String name, const String version, Integer nb_licenses)
+getLicense(const String name, const Real version, Integer nb_licenses)
 {
   if (m_parallel_super_mng == NULL)
     throw LicenseErrorException(A_FUNCINFO,"FlexLMMng not initialized");
@@ -265,7 +265,7 @@ releaseAllLicenses()
 
 String 
 FlexLMMng::
-featureInfo(const String name, const String version) const
+featureInfo(const String name, const Real version) const
 {
   String info;
   if (m_is_master) 
