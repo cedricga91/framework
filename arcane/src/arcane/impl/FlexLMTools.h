@@ -199,7 +199,12 @@ class ArcaneFeatureModel
 
   typedef enum
   {
+#ifdef ARCANE_FLEXLM
     ArcaneCore = 0, //<! Fonctionnalité noyau (liée à l'exécution)
+#endif
+#ifdef ARCANE_RLM
+    Arcane = 0, //<! Fonctionnalité noyau (liée à l'exécution)
+#endif
   } eFeature;
 
   static String getName(eFeature feature)
