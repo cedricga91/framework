@@ -323,7 +323,7 @@ const String ArcaneFeatureModel::m_arcane_feature_name[] =
     "ArcaneCore",
 #endif
 #ifdef ARCANE_RLM
-    "ArcaneCore",
+    "Arcane",
 #endif
   };
 
