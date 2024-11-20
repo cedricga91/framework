@@ -5,16 +5,16 @@
 // SPDX-License-Identifier: Apache-2.0
 //-----------------------------------------------------------------------------
 /*---------------------------------------------------------------------------*/
-/* ProfileRegion.h                                             (C) 2000-2024 */
+/* RegisterRuntimeInfo.h                                       (C) 2000-2024 */
 /*                                                                           */
-/* Région pour le profiling.                                                 */
+/* Informations pour initialiser le runtime accélérateur.                    */
 /*---------------------------------------------------------------------------*/
-#ifndef ARCANE_ACCELERATOR_CORE_INTERNAL_PROFILEREGION_H
-#define ARCANE_ACCELERATOR_CORE_INTERNAL_PROFILEREGION_H
+#ifndef ARCANE_ACCELERATOR_CORE_INTERNAL_REGISTERRUNTIMEINFO_H
+#define ARCANE_ACCELERATOR_CORE_INTERNAL_REGISTERRUNTIMEINFO_H
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 
-#include "arcane/accelerator/core/AcceleratorCoreGlobal.h"
+#include "arcane/accelerator/core/internal/AcceleratorCoreGlobalInternal.h"
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
@@ -25,24 +25,18 @@ namespace Arcane::Accelerator
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 /*!
- * \internal
- * \brief Région pour le profiling.
- *
- * Cette classe permet d'associer des informations de profiling à tous les
- * noyaux de calcul exécutés entre le constructeur et le destructeur d'une
- * instance de cette classe.
+ * \brief Informations pour initialiser le runtime accélérateur.
  */
-class ARCANE_ACCELERATOR_CORE_EXPORT ProfileRegion
+class RegisterRuntimeInfo
 {
  public:
 
-  ProfileRegion(const RunQueue& queue, const String& name);
-  ProfileRegion(const RunQueue& queue, const String& name, Int32 color_rgb);
-  ~ProfileRegion();
+  void setVerbose(bool v) { m_is_verbose = v; }
+  bool isVerbose() const { return m_is_verbose; }
 
  private:
 
-  impl::IRunnerRuntime* m_runtime = nullptr;
+  bool m_is_verbose = false;
 };
 
 /*---------------------------------------------------------------------------*/

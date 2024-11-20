@@ -1,69 +1,62 @@
 ﻿// -*- tab-width: 2; indent-tabs-mode: nil; coding: utf-8-with-signature -*-
 //-----------------------------------------------------------------------------
-// Copyright 2000-2022 CEA (www.cea.fr) IFPEN (www.ifpenergiesnouvelles.com)
+// Copyright 2000-2024 CEA (www.cea.fr) IFPEN (www.ifpenergiesnouvelles.com)
 // See the top-level COPYRIGHT file for details.
 // SPDX-License-Identifier: Apache-2.0
 //-----------------------------------------------------------------------------
 /*---------------------------------------------------------------------------*/
-/* AlephOrdering.h                                             (C) 2000-2024 */
+/* ProfileRegion.h                                             (C) 2000-2024 */
 /*                                                                           */
+/* Région pour le profiling.                                                 */
 /*---------------------------------------------------------------------------*/
-#ifndef ARCANE_ALEPH_ALEPHORDERING_H
-#define ARCANE_ALEPH_ALEPHORDERING_H
-/*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*/
-
-#include "arcane/utils/CheckedConvert.h"
-
+#ifndef ARCANE_ACCELERATOR_CORE_INTERNAL_PROFILEREGION_H
+#define ARCANE_ACCELERATOR_CORE_INTERNAL_PROFILEREGION_H
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 
-namespace Arcane
+#include "arcane/accelerator/core/AcceleratorCoreGlobal.h"
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
+namespace Arcane::Accelerator
 {
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 /*!
- * \brief Gestionnaire de reordering
+ * \brief Région pour le profiling.
+ *
+ * Cette classe permet d'associer des informations de profiling à tous les
+ * noyaux de calcul exécutés entre le constructeur et le destructeur d'une
+ * instance de cette classe.
  */
-class AlephOrdering
-: public TraceAccessor
+class ARCANE_ACCELERATOR_CORE_EXPORT ProfileRegion
 {
  public:
 
-  explicit AlephOrdering(AlephKernel*);
-  AlephOrdering(AlephKernel*, Integer, Integer, bool = false);
-  ~AlephOrdering();
+  //! Début une région de nom \a name
+  ProfileRegion(const RunQueue& queue, const String& name);
 
- public:
+  /*!
+   * \brief Début une région de nom \a name avec la couleur \a color_rgb.
+   *
+   * La couleur est donné au format RGB hexadécimal. Par exemple 0xFF0000
+   * indique la couleur rouge et 0x7F00FF indique la couleur violette.
+   */
+  ProfileRegion(const RunQueue& queue, const String& name, Int32 color_rgb);
 
-  Integer swap(Integer i)
-  {
-    if (m_do_swap)
-      return CheckedConvert::toInteger(m_swap.at(i));
-    return i;
-  }
-
- private:
-
-  void initCellOrder();
-  void initTwiceCellOrder();
-  void initFaceOrder();
-  void initCellFaceOrder();
-  void initCellNodeOrder();
-  void initTwiceCellNodeOrder();
+  ~ProfileRegion();
 
  private:
 
-  bool m_do_swap = false;
-  AlephKernel* m_kernel = nullptr;
-  UniqueArray<Int64> m_swap;
+  impl::IRunnerRuntime* m_runtime = nullptr;
 };
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 
-} // namespace Arcane
+} // namespace Arcane::Accelerator
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
